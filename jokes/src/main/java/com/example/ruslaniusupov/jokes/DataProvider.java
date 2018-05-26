@@ -31,16 +31,23 @@ public class DataProvider {
 
         } catch (FileNotFoundException e) {
             result = e.getMessage();
-            System.out.println("File is not found. " + DATA_PATH);
+            System.out.println("File is not found: " + DATA_PATH);
         } catch (IOException e) {
             result  = e.getMessage();
-            System.out.println("Can't read the line. " + e.getMessage());
+            System.out.println("Can't read the line: " + e.getMessage());
         } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    System.out.println("Can't close the InputStream: " + e.getMessage());
+                }
+            }
             if (bufferedReader != null) {
                 try {
                     bufferedReader.close();
                 } catch (IOException e) {
-                    System.out.println("Can't close the BufferedReader. " + e.getMessage());
+                    System.out.println("Can't close the BufferedReader: " + e.getMessage());
                 }
             }
         }
