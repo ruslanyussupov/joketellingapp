@@ -2,9 +2,7 @@ package com.example.ruslaniusupov.joketelling;
 
 import android.content.Intent;
 import android.os.Parcelable;
-import android.support.annotation.VisibleForTesting;
 import android.support.constraint.Group;
-import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -35,10 +33,7 @@ public class MainActivity extends AppCompatActivity implements OnLoadedListener 
     private static final String BUNDLE_JOKES = "jokes";
 
     private List<Joke> mJokes;
-    private final CountingIdlingResource mIdlingResource =
-            new CountingIdlingResource("JokesLoader");
     private InterstitialAd mInterstitialAd;
-
 
     @BindView(R.id.loading_pb)ProgressBar mLoadingPb;
     @BindView(R.id.content)Group mContent;
@@ -155,11 +150,6 @@ public class MainActivity extends AppCompatActivity implements OnLoadedListener 
     private void hideProgressBar() {
         mLoadingPb.setVisibility(View.GONE);
         mContent.setVisibility(View.VISIBLE);
-    }
-
-    @VisibleForTesting
-    public CountingIdlingResource getIdlingResource() {
-        return mIdlingResource;
     }
 
 }

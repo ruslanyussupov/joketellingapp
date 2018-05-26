@@ -14,7 +14,7 @@ import com.example.ruslaniusupov.displayjoke.model.Joke;
 public class JokeActivity extends AppCompatActivity {
 
     public static final String EXTRA_JOKE = "extra_joke";
-    public static final String BUNDLE_JOKE = "bundle_joke";
+    private static final String BUNDLE_JOKE = "bundle_joke";
 
     private Joke mJoke;
 
@@ -68,11 +68,6 @@ public class JokeActivity extends AppCompatActivity {
 
         }
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 
     private void updateUi() {
