@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
+    private static final String EMPTY_STATE = "The joke is empty";
     private CountingIdlingResource mIdlingResource;
 
     @Rule
@@ -38,7 +39,7 @@ public class MainActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.tell_joke_btn)).perform(ViewActions.click());
 
         Espresso.onView(ViewMatchers.withId(R.id.joke_tv))
-                .check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(""))));
+                .check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(EMPTY_STATE))));
 
     }
 

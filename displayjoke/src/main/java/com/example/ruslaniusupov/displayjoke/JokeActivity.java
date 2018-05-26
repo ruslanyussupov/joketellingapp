@@ -1,8 +1,11 @@
 package com.example.ruslaniusupov.displayjoke;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.MenuItem;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -19,6 +22,11 @@ public class JokeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joke);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         if (savedInstanceState == null) {
 
@@ -44,6 +52,29 @@ public class JokeActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int itemId = item.getItemId();
+
+        switch (itemId) {
+
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     private void updateUi() {
 
         if (mJoke == null) {
@@ -54,8 +85,17 @@ public class JokeActivity extends AppCompatActivity {
         TextView jokeTv = findViewById(R.id.joke_tv);
         RatingBar ratingBar = findViewById(R.id.rating);
 
-        categoryTv.setText(mJoke.getCategory());
-        jokeTv.setText(mJoke.getBody());
+        String category = mJoke.getCategory();
+        String body = mJoke.getBody();
+
+        if (!TextUtils.isEmpty(category)) {
+            categoryTv.setText(category);
+        }
+
+        if (!TextUtils.isEmpty(body)) {
+            jokeTv.setText(body);
+        }
+
         ratingBar.setRating(mJoke.getRating());
 
     }
