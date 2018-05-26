@@ -1,7 +1,6 @@
 package com.example.ruslaniusupov.joketelling;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Parcelable;
 import android.support.annotation.VisibleForTesting;
 import android.support.constraint.Group;
@@ -16,11 +15,11 @@ import android.widget.Toast;
 
 import com.example.ruslaniusupov.displayjoke.JokeActivity;
 import com.example.ruslaniusupov.displayjoke.model.Joke;
-import com.example.ruslaniusupov.jokes.DataProvider;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -29,7 +28,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+import static com.example.ruslaniusupov.joketelling.JokesLoaderAsyncTask.*;
+
+public class MainActivity extends AppCompatActivity implements OnLoadedListener {
 
     private static final String BUNDLE_JOKES = "jokes";
 
@@ -53,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
 
-            new JokesLoaderAsyncTask().execute();
+            showProgressBar();
+            new JokesLoaderAsyncTask(new WeakReference<OnLoadedListener>(this)).execute();
 
         } else {
 
@@ -108,19 +110,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private class JokesLoaderAsyncTask extends AsyncTask<Void, Void, List<Joke>> {
-
-        @Override
-        protected List<Joke> doInBackground(Void... voids) {
-            showProgressBar();
-            return Utils.getJokes(DataProvider.getJokesJson());
-        }
-
-        @Override
-        protected void onPostExecute(List<Joke> jokes) {
-            hideProgressBar();
-            mJokes = jokes;
-        }
+    @Override
+    public void OnLoaded(List<Joke> jokes) {
+        hideProgressBar();
+        mJokes = jokes;
     }
 
     private void initInterstitialAd() {
