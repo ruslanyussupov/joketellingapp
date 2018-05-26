@@ -25,3 +25,34 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+
+    compileSdkVersion = 27
+    minSdkVersion = 16
+    targetSdkVersion = 27
+    versionCode = 1
+    versionName = '1.0'
+    endpointsFrameworkPluginVersion = '1.0.2'
+    androidSupportVersion = '27.1.1'
+    constraintLayoutVersion = '1.1.0'
+    playServicesVersion = '15.0.1'
+    apiClientVersion = '1.23.0'
+    jsr305Version = '3.0.1'
+    butterknifeVersion = '8.8.1'
+    junitVersion = '4.12'
+    espressoVersion = '3.0.2'
+    supportTestVersion = '1.0.2'
+
+}
+
+task runTests {
+    dependsOn = [':app:connectedAndroidTest', ':app:test', ':jokes:test']
+    mustRunAfter = [':app:test', ':jokes:test']
+}
+
+task runServerWithTests {
+    dependsOn = [':backend:appengineStart', 'runTests']
+    mustRunAfter ':backend:appengineStart'
+    finalizedBy ":backend:appengineStop"
+}
