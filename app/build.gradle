@@ -50,7 +50,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$rootProject.ext.androidSupportVersion"
     implementation "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVersion"
     implementation "com.android.support:customtabs:$rootProject.ext.androidSupportVersion"
-    implementation "com.google.android.gms:play-services-ads:$rootProject.ext.playServicesVersion"
+    freeImplementation "com.google.android.gms:play-services-ads:$rootProject.ext.playServicesVersion"
     implementation "com.google.api-client:google-api-client:$rootProject.ext.apiClientVersion"
     implementation "com.google.http-client:google-http-client-android:$rootProject.ext.apiClientVersion"
     implementation "com.google.code.findbugs:jsr305:$rootProject.ext.jsr305Version"
